@@ -64,7 +64,7 @@ contract ERC677Token is ERC677 {
     public
     returns (bool success)
   {
-    ERC677(super).transfer(_to, _value);
+    linkERC20Basic(this).transfer(_to, _value);
     emit Transfer(msg.sender, _to, _value, _data);
     if (isContract(_to)) {
       contractFallback(_to, _value, _data);
