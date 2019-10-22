@@ -7,7 +7,7 @@ import '../math/linkSafeMath.sol';
 
 /**
  * @title Basic token
- * @dev Basic version of StandardToken, with no allowances. 
+ * @dev Basic version of StandardToken, with no allowances.
  */
 contract linkBasicToken is linkERC20Basic {
   using linkSafeMath for uint256;

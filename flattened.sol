@@ -18,8 +18,6 @@ contract linkERC20Basic {
 
 // File: contracts/token/linkERC20.sol
 
-pragma solidity ^0.5.0;
-
 
 
 /**
@@ -35,8 +33,6 @@ contract linkERC20 is linkERC20Basic {
 
 // File: contracts/token/ERC677.sol
 
-pragma solidity ^0.5.0;
-
 
 contract ERC677 is linkERC20 {
   function transferAndCall(address to, uint value, bytes memory data) public returns (bool success);
@@ -46,16 +42,12 @@ contract ERC677 is linkERC20 {
 
 // File: contracts/token/ERC677Receiver.sol
 
-pragma solidity ^0.5.0;
-
 
 contract ERC677Receiver {
   function onTokenTransfer(address _sender, uint _value, bytes memory _data) public;
 }
 
 // File: contracts/ERC677Token.sol
-
-pragma solidity ^0.5.0;
 
 
 
@@ -92,9 +84,11 @@ contract ERC677Token is ERC677 {
 
   function isContract(address _addr)
     private
+    view
     returns (bool hasCode)
   {
     uint length;
+    // solium-disable-next-line security/no-inline-assembly
     assembly { length := extcodesize(_addr) }
     return length > 0;
   }
@@ -102,8 +96,6 @@ contract ERC677Token is ERC677 {
 }
 
 // File: contracts/math/linkSafeMath.sol
-
-pragma solidity ^0.5.0;
 
 
 /**
@@ -138,14 +130,12 @@ library linkSafeMath {
 
 // File: contracts/token/linkBasicToken.sol
 
-pragma solidity ^0.5.0;
-
 
 
 
 /**
  * @title Basic token
- * @dev Basic version of StandardToken, with no allowances. 
+ * @dev Basic version of StandardToken, with no allowances.
  */
 contract linkBasicToken is linkERC20Basic {
   using linkSafeMath for uint256;
@@ -176,8 +166,6 @@ contract linkBasicToken is linkERC20Basic {
 }
 
 // File: contracts/token/linkStandardToken.sol
-
-pragma solidity ^0.5.0;
 
 
 
@@ -233,10 +221,10 @@ contract linkStandardToken is linkERC20, linkBasicToken {
   function allowance(address _owner, address _spender) public view returns (uint256 remaining) {
     return allowed[_owner][_spender];
   }
-  
-    /*
+
+  /*
    * approve should be called when allowed[_spender] == 0. To increment
-   * allowed value is better to use this function to avoid 2 calls (and wait until 
+   * allowed value is better to use this function to avoid 2 calls (and wait until
    * the first transaction is mined)
    * From MonolithDAO Token.sol
    */
@@ -262,8 +250,6 @@ contract linkStandardToken is linkERC20, linkBasicToken {
 }
 
 // File: contracts/LinkToken.sol
-
-pragma solidity ^0.5.0;
 
 
 
@@ -339,7 +325,10 @@ contract LinkToken is linkStandardToken, ERC677Token {
   // MODIFIERS
 
   modifier validRecipient(address _recipient) {
-    require(_recipient != address(0) && _recipient != address(this));
+    require(
+      _recipient != address(0) && _recipient != address(this),
+      "recipient cannot be empty or this"
+    );
     _;
   }
 

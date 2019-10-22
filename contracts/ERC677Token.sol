@@ -37,9 +37,11 @@ contract ERC677Token is ERC677 {
 
   function isContract(address _addr)
     private
+    view
     returns (bool hasCode)
   {
     uint length;
+    // solium-disable-next-line security/no-inline-assembly
     assembly { length := extcodesize(_addr) }
     return length > 0;
   }
