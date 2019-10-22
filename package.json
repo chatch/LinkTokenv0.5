@@ -1,5 +1,6 @@
 {
-  "name": "link_token",
+  "name": "link_token_v0.5",
+  "description": "LinkToken fork updated for Solidity v0.5",
   "homepage": "https://github.com/smartcontractkit/LinkToken",
   "repository": "https://github.com/smartcontractkit/LinkToken",
   "version": "1.0.6",
@@ -9,10 +10,10 @@
   ],
   "devDependencies": {
     "bignumber.js": "^2.0.0",
-    "ganache-cli": "^6.4.1",
+    "ganache-cli": "^6.7.0",
     "moment": "^2.15.2",
-    "solc": "^0.4.11",
-    "truffle": "^4.1.15",
+    "solc": "^0.5.12",
+    "truffle": "^5.0.41",
     "web3": "^1.0.0-beta.55"
   },
   "files": [

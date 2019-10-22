@@ -1,4 +1,4 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.5.0;
 
 
 contract Token677ReceiverMock {
@@ -7,7 +7,7 @@ contract Token677ReceiverMock {
     bytes public tokenData;
     bool public calledFallback = false;
 
-    function onTokenTransfer(address _sender, uint _value, bytes _data)
+    function onTokenTransfer(address _sender, uint _value, bytes memory _data)
     public {
       calledFallback = true;
 

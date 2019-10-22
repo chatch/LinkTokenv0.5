@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.5.0;
 
 
 import "./token/ERC677.sol";
@@ -13,12 +13,12 @@ contract ERC677Token is ERC677 {
   * @param _value The amount to be transferred.
   * @param _data The extra data to be passed to the receiving contract.
   */
-  function transferAndCall(address _to, uint _value, bytes _data)
+  function transferAndCall(address _to, uint _value, bytes memory _data)
     public
     returns (bool success)
   {
-    super.transfer(_to, _value);
-    Transfer(msg.sender, _to, _value, _data);
+    ERC677(super).transfer(_to, _value);
+    emit Transfer(msg.sender, _to, _value, _data);
     if (isContract(_to)) {
       contractFallback(_to, _value, _data);
     }
@@ -28,7 +28,7 @@ contract ERC677Token is ERC677 {
 
   // PRIVATE
 
-  function contractFallback(address _to, uint _value, bytes _data)
+  function contractFallback(address _to, uint _value, bytes memory _data)
     private
   {
     ERC677Receiver receiver = ERC677Receiver(_to);
